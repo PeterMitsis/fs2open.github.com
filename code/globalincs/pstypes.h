@@ -17,6 +17,9 @@
 #include <stdlib.h>
 #include <memory.h>
 #include <string.h>
+
+#include <immintrin.h>
+
 #include "globalincs/toolchain.h"
 
 #if defined( __x86_64__ ) || defined( _WIN64 )
@@ -94,10 +97,16 @@ typedef struct ivec3 {
 Note: this is a struct, not a class, so no member functions. */
 typedef struct vec3d {
 	union {
-		struct {
-			float x,y,z;
+		struct {                     /* For cartesian coordinate access */
+			float x, y, z, w;
 		} xyz;
-		float a1d[3];
+
+		struct {                     /* For generating bit masks */
+			unsigned i, j, k, l;
+		} ijk;
+
+		float a1d[4];                /* For array access */
+		__m128  xyzw __ALIGNED(16);  /* For SSE */
 	};
 } vec3d;
 
@@ -118,13 +127,21 @@ typedef struct angles {
 	float	p, b, h;
 } angles_t;
 
+/*
+ * Though structured as 3x4 matrix for computational convenience,
+ * it can generally be thought of as a 3x3 matrix as the 4th element
+ * in each row is typically ignored.
+ */
 typedef struct matrix {
 	union {
-		struct {
-			vec3d	rvec, uvec, fvec;
+		struct {                        /* For access by right, up and */
+			vec3d	rvec, uvec, fvec;   /* forward vector names */
 		} vec;
-		float a2d[3][3];
-		float a1d[9];
+
+		vec3d row[3];                   /* For access by row */
+
+		float a2d[3][4];                /* For 2-D array access */
+		float a1d[12];                  /* For 1-D array access */
 	};
 } matrix;
 

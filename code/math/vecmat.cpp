@@ -19,9 +19,9 @@
 #define CONVERT_RADIANS 0.017453   // conversion factor from degrees to radians
 
 vec3d vmd_zero_vector = ZERO_VECTOR;
-vec3d vmd_x_vector = { { { 1.0f, 0.0f, 0.0f } } };
-vec3d vmd_y_vector = { { { 0.0f, 1.0f, 0.0f } } };
-vec3d vmd_z_vector = { { { 0.0f, 0.0f, 1.0f } } };
+vec3d vmd_x_vector = { { { 1.0f, 0.0f, 0.0f, 0.0f } } };
+vec3d vmd_y_vector = { { { 0.0f, 1.0f, 0.0f, 0.0f } } };
+vec3d vmd_z_vector = { { { 0.0f, 0.0f, 1.0f, 0.0f } } };
 matrix vmd_identity_matrix = IDENTITY_MATRIX;
 
 #define UNINITIALIZED_VALUE  -12345678.9f
@@ -1666,11 +1666,12 @@ int vm_vec_same(const vec3d *v1, const vec3d *v2)
 // see if two matrices are the same
 int vm_matrix_same(matrix *m1, matrix *m2)
 {
-	int i;
+	int i, j;
 
-	for (i = 0; i < 9; i++) {
-		if (m1->a1d[i] != m2->a1d[i]) {
-			return 0;
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			if (m1->row[i].a1d[j] != m2->row[i].a1d[j]) {
+				return 0;
 		}
 	}
 

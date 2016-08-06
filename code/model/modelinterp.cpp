@@ -1874,7 +1874,7 @@ float get_model_closest_box_point_with_delta(vec3d *closest_box_point, vec3d *st
 	for (i=0; i<6; i++) {
 		idx = i / 2;	// which row vector of Identity matrix
 
-		memcpy(&ray_direction, vmd_identity_matrix.a2d[idx], sizeof(vec3d));
+		memcpy(&ray_direction, vmd_identity_matrix.row[idx], sizeof(vec3d));
 
 		// do negative, then positive plane for each axis
 		if (2 * idx == i) {

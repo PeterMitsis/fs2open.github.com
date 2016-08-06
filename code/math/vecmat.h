@@ -72,16 +72,16 @@ extern matrix vmd_identity_matrix;
 
 /* Handy constants */
 
-#define ZERO_VECTOR { { { 0.0f, 0.0f, 0.0f } } }
+#define ZERO_VECTOR { { { 0.0f, 0.0f, 0.0f, 0.0f } } }
 
 /*
  * First set of inside braces is for union,
  * Second set is for inside union, then for a2d[3][3]
  * (some compiler warning messages just suck)
  */
-#define IDENTITY_MATRIX { { { { { { 1.0f, 0.0f, 0.0f } } },        \
-							  { { { 0.0f, 1.0f, 0.0f } } },        \
-							  { { { 0.0f, 0.0f, 1.0f } } } } } }
+#define IDENTITY_MATRIX { { { { { { 1.0f, 0.0f, 0.0f, 0.0f } } },        \
+							  { { { 0.0f, 1.0f, 0.0f, 0.0f } } },        \
+							  { { { 0.0f, 0.0f, 1.0f, 0.0f } } } } } }
 
 /**
  * @brief Fill in fields of an angle vector

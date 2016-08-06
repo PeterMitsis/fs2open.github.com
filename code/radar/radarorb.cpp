@@ -39,11 +39,11 @@ vec3d orb_ring_xy[NUM_ORB_RING_SLICES];
 vec3d orb_ring_xz[NUM_ORB_RING_SLICES];
 
 //special view matrix to get the orb rotating the correct way
-static matrix view_perturb = { { { { { { 1.0f, 0.0f, 0.0f } } },
-                                   { { { 0.0f, -1.0f, 0.0f } } },
-                                   { { { 0.0f, 0.0f, -1.0f } } } } } };
+static matrix view_perturb = { { { { { { 1.0f, 0.0f, 0.0f, 0.0f } } },
+                                   { { { 0.0f, -1.0f, 0.0f, 0.0f } } },
+                                   { { { 0.0f, 0.0f, -1.0f, 0.0f } } } } } };
 
-static vec3d Orb_eye_position = { { { 0.0f, 0.0f, -3.0f } } };
+static vec3d Orb_eye_position = { { { 0.0f, 0.0f, -3.0f, 0.0f } } };
 
 HudGaugeRadarOrb::HudGaugeRadarOrb():
 HudGaugeRadar(HUD_OBJECT_RADAR_ORB, 255, 255, 255)

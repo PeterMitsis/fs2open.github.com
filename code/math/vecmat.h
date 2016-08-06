@@ -408,15 +408,6 @@ float vm_vec_normalize_quick(vec3d *v);
 float vm_vec_copy_normalize_quick_mag(vec3d *dest, const vec3d *src);
 
 /**
- * @brief In-place normalization of @a v
- *
- * Uses vm_vec_mag_quick() in the calculation.
- *
- * @return Quick magnitude of @a src
- */
-float vm_vec_normalize_quick_mag(vec3d *v);
-
-/**
  * @brief Calculate normalized direction vector between two points
  *
  * @a dest = normalized(@a end - @a start). Note that the order of parameters
@@ -426,15 +417,6 @@ float vm_vec_normalize_quick_mag(vec3d *v);
  */
 float vm_vec_normalized_dir(vec3d *dest,const vec3d *end, const vec3d *start);
 
-/**
- * @brief Calculate normalized direction vector between two points
- *
- * Like vm_vec_normalized_dir() but uses vm_vec_normalize_quick_mag().
- *
- * @return Magnitude of direction vector
- */
-float vm_vec_normalized_dir_quick_mag(vec3d *dest, const vec3d *end,
-									  const vec3d *start);
 /**
  * @brief Normalizes the direction vector @a end - @a start
  *

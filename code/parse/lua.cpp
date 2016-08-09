@@ -58,6 +58,8 @@
 #define BMPMAN_INTERNAL
 #include "bmpman/bm_internal.h"
 
+static int matrix_table[9] = {0, 1, 2, 4, 5, 6, 8, 9, 10};
+
 //*************************Lua globals*************************
 SCP_vector<ade_table_entry> Ade_table_entries;
 
@@ -387,7 +389,7 @@ ADE_INDEXER(l_Matrix, "p,b,h or 1-9", "Orientation component - pitch, bank, head
 	else
 	{
 		idx--;	//Lua->FS2
-		val = &mh->GetMatrix()->a1d[idx];
+		val = &mh->GetMatrix()->a1d[matrix_table[idx]];
 	}
 
 	if(ADE_SETTING_VAR && *val != newval)
@@ -428,7 +430,7 @@ ADE_FUNC(__tostring, l_Matrix, NULL, "Converts a matrix to a string with format 
 		return ade_set_error(L, "s", "<NULL>");
 
 	char buf[128];
-	float *a = &mh->GetMatrix()->a1d[0];
+	float *a = &mh->GetMatrix()->a1d[matrix_table[0]];
 	sprintf(buf, "[%f %f %f | %f %f %f | %f %f %f]", a[0], a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8]);
 
 	return ade_set_args(L, "s", buf);
@@ -447,9 +449,11 @@ ADE_FUNC(getInterpolated, l_Matrix, "orientation Final, number Factor", "Returns
 	matrix final = vmd_identity_matrix;
 
 	//matrix subtraction & scaling
+	int j;
 	for(int i = 0; i < 9; i++)
 	{
-		final.a1d[i] = A->a1d[i] + (B->a1d[i] - A->a1d[i])*factor;
+		j = matrix_table[i];
+		final.a1d[j] = A->a1d[j] + (B->a1d[j] - A->a1d[j])*factor;
 	}
 
 	return ade_set_args(L, "o", l_Matrix.Set(matrix_h(&final)));
@@ -3840,10 +3844,10 @@ ADE_INDEXER(l_Vector, "x,y,z or 1-3", "Vector component", "number", "Value at in
 		return ade_set_error(L, "f", 0.0f);
 
 	if(ADE_SETTING_VAR) {
-		v3->a1d[idx] = newval;
+		v3->a1d[matrix_table[idx]] = newval;
 	}
 
-	return ade_set_args(L, "f", v3->a1d[idx]);
+	return ade_set_args(L, "f", v3->a1d[matrix_table[idx]]);
 }
 
 ADE_FUNC(__add, l_Vector, "number/vector", "Adds vector by another vector, or adds all axes by value", "vector", "Final vector, or null vector if error occurs")
@@ -12484,14 +12488,25 @@ ADE_FUNC(error, l_Base, "string Message", "Displays a FreeSpace error message wi
 ADE_FUNC(createOrientation, l_Base, "[p/r1c1, b/r1c2, h/r1c3, r2c1, r2c2, r2c3, r3c1, r3c2, r3c3]", "Given 0, 3, or 9 arguments, creates an orientation object with that orientation.", "orientation", "New orientation object, or null orientation on failure")
 {
 	matrix m;
-	int numargs = ade_get_args(L, "|fffffffff", &m.a1d[0], &m.a1d[1], &m.a1d[2], &m.a1d[3], &m.a1d[4], &m.a1d[5], &m.a1d[6], &m.a1d[7], &m.a1d[8]);
+	int numargs = ade_get_args(L, "|fffffffff",
+							   &m.a1d[matrix_table[0]],
+							   &m.a1d[matrix_table[1]],
+							   &m.a1d[matrix_table[2]],
+							   &m.a1d[matrix_table[3]],
+							   &m.a1d[matrix_table[4]],
+							   &m.a1d[matrix_table[5]],
+							   &m.a1d[matrix_table[6]],
+							   &m.a1d[matrix_table[7]],
+							   &m.a1d[matrix_table[8]]);
 	if(!numargs)
 	{
 		return ade_set_args(L, "o", l_Matrix.Set( matrix_h(&vmd_identity_matrix) ));
 	}
 	else if(numargs == 3)
 	{
-		angles a = {m.a1d[0], m.a1d[1], m.a1d[2]};
+		angles a = {m.a1d[matrix_table[0]],
+					m.a1d[matrix_table[1]],
+					m.a1d[matrix_table[2]]};
 		return ade_set_args(L, "o", l_Matrix.Set(matrix_h(&a)));
 	}
 	else if(numargs == 9)

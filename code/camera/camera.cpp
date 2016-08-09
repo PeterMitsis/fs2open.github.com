@@ -24,6 +24,9 @@ SCP_vector<camera*> Cameras;
 camid Current_camera;
 camid Main_camera;
 
+/* Table to translate from 3x3 matrix index to 3x4 matrix index */
+static int matrix_index[9] = {0, 1, 2, 4, 5, 6, 8, 9, 10};
+
 //*************************CLASS: camera*************************
 //This is where the camera class beings! :D
 camera::camera(char *in_name, int in_signature)
@@ -74,7 +77,7 @@ void camera::reset()
 	for(int i = 0; i < 9; i++)
 	{
 		ori[i].clear();
-		ori[i].set(vmd_identity_matrix.a1d[i]);
+		ori[i].set(vmd_identity_matrix.a1d[matrix_index[i]]);
 	}
 }
 
@@ -198,7 +201,7 @@ void camera::set_rotation(matrix *in_orientation, float in_rotation_time, float 
 	{
 		c_ori = *in_orientation;
 		for(int i = 0; i < 9; i++)
-			ori[i].set(in_orientation->a1d[i]);
+			ori[i].set(in_orientation->a1d[matrix_index[i]]);
 		flags |= CAM_STATIONARY_ORI;
 		return;
 	}
@@ -212,7 +215,7 @@ void camera::set_rotation(matrix *in_orientation, float in_rotation_time, float 
 	}
 
 	for(int i = 0; i < 9; i++)
-		ori[i].setAVD(in_orientation->a1d[i], in_rotation_time, in_rotation_acceleration_time, in_rotation_deceleration_time, 0.0f);
+		ori[i].setAVD(in_orientation->a1d[matrix_index[i]], in_rotation_time, in_rotation_acceleration_time, in_rotation_deceleration_time, 0.0f);
 }
 
 void camera::set_rotation(angles *in_angles, float in_rotation_time, float in_rotation_acceleration_time, float in_rotation_deceleration_time)
@@ -416,7 +419,7 @@ void camera::get_info(vec3d *position, matrix *orientation)
 			for(int i = 0; i < 9; i++)
 			{
 				ori[i].get(&pos, NULL);
-				mtxB.a1d[i] = pos;
+				mtxB.a1d[matrix_index[i]] = pos;
 			}
 			vm_matrix_x_matrix(&c_ori, &mtxA, &mtxB);
 

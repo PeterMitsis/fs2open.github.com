@@ -750,17 +750,17 @@ static matrix *sincos_2_matrix(matrix *m, float sinp, float cosp,
 	sbch = sinb * cosh;
 
 	m->vec.rvec.xyz.x = cbch + sinp * sbsh;     // m1
-	m->vec.uvec.xyz.z = sbsh + sinp * cbch;     // m8
+	m->vec.uvec.xyz.z = sbsh + sinp * cbch;     // m10
 
 	m->vec.uvec.xyz.x = sinp * cbsh - sbch;     // m2
-	m->vec.rvec.xyz.z = sinp * sbch - cbsh;     // m7
+	m->vec.rvec.xyz.z = sinp * sbch - cbsh;     // m9
 
 	m->vec.fvec.xyz.x = sinh * cosp;            // m3
-	m->vec.rvec.xyz.y = sinb * cosp;            // m4
-	m->vec.uvec.xyz.y = cosb * cosp;            // m5
-	m->vec.fvec.xyz.z = cosh * cosp;            // m9
+	m->vec.rvec.xyz.y = sinb * cosp;            // m5
+	m->vec.uvec.xyz.y = cosb * cosp;            // m6
+	m->vec.fvec.xyz.z = cosh * cosp;            // m11
 
-	m->vec.fvec.xyz.y = -sinp;                  // m6
+	m->vec.fvec.xyz.y = -sinp;                  // m7
 
 
 	return m;
@@ -1672,6 +1672,7 @@ int vm_matrix_same(matrix *m1, matrix *m2)
 		for (j = 0; j < 3; j++) {
 			if (m1->row[i].a1d[j] != m2->row[i].a1d[j]) {
 				return 0;
+			}
 		}
 	}
 

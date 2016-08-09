@@ -402,13 +402,13 @@ void draw_list::add_submodel_to_batch(int model_num)
 	transform.a1d[1] = Current_transform.basis.a1d[1];
 	transform.a1d[2] = Current_transform.basis.a1d[2];
 
-	transform.a1d[4] = Current_transform.basis.a1d[3];
-	transform.a1d[5] = Current_transform.basis.a1d[4] * Current_scale.xyz.y;
-	transform.a1d[6] = Current_transform.basis.a1d[5];
+	transform.a1d[4] = Current_transform.basis.a1d[4];
+	transform.a1d[5] = Current_transform.basis.a1d[5] * Current_scale.xyz.y;
+	transform.a1d[6] = Current_transform.basis.a1d[6];
 
-	transform.a1d[8] = Current_transform.basis.a1d[6];
-	transform.a1d[9] = Current_transform.basis.a1d[7];
-	transform.a1d[10] = Current_transform.basis.a1d[8] * Current_scale.xyz.z;
+	transform.a1d[8] = Current_transform.basis.a1d[8];
+	transform.a1d[9] = Current_transform.basis.a1d[9];
+	transform.a1d[10] = Current_transform.basis.a1d[10] * Current_scale.xyz.z;
 
 	// set position
 	transform.a1d[12] = Current_transform.origin.a1d[0];

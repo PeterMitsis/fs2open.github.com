@@ -494,13 +494,15 @@ int create_object_hash(object *objp)
 {
 	int	*ip;
 	unsigned int	hashval = 0;
-	int	i;
+	int	i, j;
 
 	ip = (int *) &objp->orient;
 
-	for (i=0; i<9; i++) {
-		hashval = hash(hashval, *ip);
-		ip++;
+	for (i = 0; i < 3; i++) {
+		ip = (int *) &objp->orient.row[i];
+		for (j = 0; j < 3; j++, ip++) {
+			hashval = hash(hashval, *ip);
+		}
 	}
 
 	ip = (int *) &objp->pos;

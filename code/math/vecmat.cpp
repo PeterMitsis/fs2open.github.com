@@ -1664,7 +1664,7 @@ int vm_vec_same(const vec3d *v1, const vec3d *v2)
 }
 
 // see if two matrices are the same
-int vm_matrix_same(matrix *m1, matrix *m2)
+int vm_matrix_same(const matrix *m1, const matrix *m2)
 {
 	int i, j;
 

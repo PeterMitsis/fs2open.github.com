@@ -836,7 +836,7 @@ int vm_vec_same(const vec3d *v1, const vec3d *v2);
  *
  * @return 1 if matrices are identical; 0 otherwise
  */
-int vm_matrix_same(matrix *m1, matrix *m2);
+int vm_matrix_same(const matrix *m1, const matrix *m2);
 
 /**
  * @brief Interpolate from a start matrix towards a goal matrix

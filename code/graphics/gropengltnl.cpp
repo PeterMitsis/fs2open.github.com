@@ -1584,7 +1584,8 @@ void gr_opengl_set_view_matrix(const vec3d *pos, const matrix *orient)
 
 	// right now it depends on your settings as to whether this has any effect in-mission
 	// not much good now, but should be a bit more useful later on
-	if ( !memcmp(pos, &last_view_pos, sizeof(vec3d)) && !memcmp(orient, &last_view_orient, sizeof(matrix)) ) {
+	if (vm_vec_same(pos, &last_view_pos) &&
+		vm_matrix_same(orient, &last_view_orient)) {
 		use_last_view = true;
 	} else {
 		memcpy(&last_view_pos, pos, sizeof(vec3d));

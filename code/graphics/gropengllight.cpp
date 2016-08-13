@@ -246,7 +246,8 @@ void opengl_change_active_lights(int pos, int d_offset)
 
 	glPushMatrix();
 
-	if ( !memcmp(&Eye_position, &last_view_pos, sizeof(vec3d)) && !memcmp(&Eye_matrix, &last_view_orient, sizeof(matrix)) ) {
+	if (vm_vec_same(&Eye_position, &last_view_pos) &&
+		vm_matrix_same(&Eye_matrix, &last_view_orient)) {
 		use_last_view = true;
 	} else {
 		memcpy(&last_view_pos, &Eye_position, sizeof(vec3d));

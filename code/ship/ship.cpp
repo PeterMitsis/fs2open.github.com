@@ -11525,7 +11525,7 @@ void ship_process_targeting_lasers()
  *	Calls ::weapon_hit(), indirectly via ::weapon_detonate(), to detonate weapon.
  *	If it's a weapon that spawns particles, those will be released.
  */
-static int maybe_detonate_weapon(ship_weapon *swp, object *src)
+static int maybe_detonate_weapon(ship_weapon *swp, object* /*src*/)
 {
 	int			objnum = swp->last_fired_weapon_index;
 	object		*objp;
@@ -14287,7 +14287,7 @@ int ship_class_query_general_type(int ship_class)
 /**
  * Returns true
  */
-int ship_docking_valid(int docker, int dockee)
+int ship_docking_valid(int  /*docker*/, int  /*dockee*/)
 {
 	// Goober5000
 	// So many people have asked for this function to be extended that it's making less
@@ -17228,7 +17228,7 @@ bool ship_has_dock_bay(int shipnum)
 }
 
 // Goober5000
-bool ship_useful_for_departure(int shipnum, int path_mask)
+bool ship_useful_for_departure(int shipnum, int  /*path_mask*/)
 {
 	Assert( shipnum >= 0 && shipnum < MAX_SHIPS );
 
@@ -18753,7 +18753,7 @@ int ship_render_get_insignia(object* obj, ship* shipp)
 	return -1;
 }
 
-void ship_render_set_animated_effect(model_render_params *render_info, ship *shipp, uint *render_flags)
+void ship_render_set_animated_effect(model_render_params *render_info, ship *shipp, uint * /*render_flags*/)
 {
 	if ( !shipp->shader_effect_active || Rendering_to_shadow_map ) {
 		return;

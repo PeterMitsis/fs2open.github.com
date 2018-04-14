@@ -4392,7 +4392,7 @@ void weapon_home(object *obj, int num, float frame_time)
 // as Mike K did with ships -- break weapon into process_pre and process_post for code to execute
 // before and after physics movement
 
-void weapon_process_pre( object *obj, float frame_time)
+void weapon_process_pre( object *obj, float  /*frame_time*/)
 {
 	if(obj->type != OBJ_WEAPON)
 		return;
@@ -5898,7 +5898,7 @@ int weapon_area_calc_damage(object *objp, vec3d *pos, float inner_rad, float out
  * @param blast				Force of blast
  * @param make_shockwave	Boolean, whether to create a shockwave or not
  */
-void weapon_area_apply_blast(vec3d *force_apply_pos, object *ship_objp, vec3d *blast_pos, float blast, int make_shockwave)
+void weapon_area_apply_blast(vec3d * /*force_apply_pos*/, object *ship_objp, vec3d *blast_pos, float blast, int make_shockwave)
 {
 	#define	SHAKE_CONST 3000
 	vec3d		force, vec_blast_to_ship, vec_ship_to_impact;

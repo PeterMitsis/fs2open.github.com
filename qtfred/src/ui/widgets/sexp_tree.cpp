@@ -4067,7 +4067,7 @@ sexp_list_item* sexp_tree::get_listing_opf_cargo() {
 
 	head.add_data("Nothing");
 	for (int i = 0; i < Num_cargo; i++) {
-		if (stricmp(Cargo_names[i], "nothing")) {
+		if (stricmp(Cargo_names[i], "nothing") != 0) {
 			head.add_data(Cargo_names[i]);
 		}
 	}
